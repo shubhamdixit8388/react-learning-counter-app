@@ -25,6 +25,14 @@ class Counters extends React.Component {
     console.log("On delete event called: ", counterId);
   };
 
+  handleIncrement = (updateCounter) => {
+    const counters = [...this.state.counters];
+    const counterIndex = counters.indexOf(updateCounter);
+    counters[counterIndex] = { ...updateCounter };
+    counters[counterIndex].value++;
+    this.setState({ counters });
+  };
+
   render() {
     return (
       <div>
@@ -33,6 +41,7 @@ class Counters extends React.Component {
             key={counter.id}
             counter={counter}
             onDelete={this.handleDelete}
+            onIncrement={this.handleIncrement}
           />
         ))}
       </div>
