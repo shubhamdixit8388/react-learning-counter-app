@@ -2,19 +2,20 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   render() {
+    const { counter, onIncrement, onDelete } = this.props;
     return (
       <div>
-        <span className={this.badgeColor()}>{this.formatCount()}</span>
+        <span className={this.badgeColor(counter)}>
+          {this.formatCount(counter)}
+        </span>
         <button
-          onClick={() => {
-            this.props.onIncrement(this.props.counter);
-          }}
+          onClick={() => onIncrement(counter)}
           className="btn btn-secondary btn-sm mr-2"
         >
           increament
         </button>
         <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
+          onClick={() => onDelete(counter.id)}
           className="btn btn-danger btn-sm"
         >
           Delete
@@ -23,13 +24,11 @@ class Counter extends Component {
     );
   }
 
-  formatCount() {
-    const { value } = this.props.counter;
+  formatCount({ value }) {
     return value === 0 ? "ZERO" : value.toString();
   }
 
-  badgeColor() {
-    const { value } = this.props.counter;
+  badgeColor({ value }) {
     let badgeClass = "badge m-2 badge-";
     badgeClass += value === 0 ? "warning" : "primary";
     return badgeClass;
