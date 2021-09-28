@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   render() {
-    const { counter, onIncrement, onDelete } = this.props;
+    const { counter, onIncrement, onDelete, onDecrement } = this.props;
     return (
       <div>
         <span className={this.badgeColor(counter)}>
@@ -12,7 +12,14 @@ class Counter extends Component {
           onClick={() => onIncrement(counter)}
           className="btn btn-secondary btn-sm mr-2"
         >
-          increament
+          +
+        </button>
+        <button
+          disabled={!counter.value}
+          onClick={() => onDecrement(counter)}
+          className="btn btn-secondary btn-sm mr-2"
+        >
+          -
         </button>
         <button
           onClick={() => onDelete(counter.id)}
