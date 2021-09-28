@@ -1,37 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Counter extends Component {
-    state = {
-        count: 0,
-        tags: ['tag1', 'tag2', 'tag3']
-    };
-    
-    render() { 
-        return (<React.Fragment>
-            <span className={this.badgeColor()}>{this.formatCount()}</span>
-            <button onClick={() => {this.handleIncrement({id: 1})}} className="btn btn-secondary btn-sm">increament</button>
-            <ul>
-                {this.state.tags.map(tag => <li key={tag}>{tag}</li>)}
-            </ul>
-            </React.Fragment>);
-    }
+  state = {
+    counter: this.props.counter,
+  };
 
-    handleIncrement = product => {
-        console.log(product);
-        this.setState({count: this.state.count + 1});
-    }
+  render() {
+    console.log("props:", this.props);
+    return (
+      <div>
+        <span className={this.badgeColor()}>{this.formatCount()}</span>
+        <button
+          onClick={() => {
+            this.handleIncrement();
+          }}
+          className="btn btn-secondary btn-sm"
+        >
+          increament
+        </button>
+        <button
+          onClick={() => this.props.onDelete(this.state.counter.id)}
+          className="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
+      </div>
+    );
+  }
 
-    formatCount() {
-        const { count } = this.state;
-        return count === 0 ? 'ZERO' : count.toString();
-    }
+  handleIncrement = () => {
+    const { value } = this.state.counter;
+    this.setState({ counter: { value: value + 1 } });
+  };
 
-    badgeColor() {
-        const { count } = this.state;
-        let badgeClass = 'badge m-2 badge-';
-        badgeClass += count === 0 ? 'warning' : 'primary';
-        return badgeClass;
-    }
+  formatCount() {
+    const { value } = this.state.counter;
+    return value === 0 ? "ZERO" : value.toString();
+  }
+
+  badgeColor() {
+    const { value } = this.state.counter;
+    let badgeClass = "badge m-2 badge-";
+    badgeClass += value === 0 ? "warning" : "primary";
+    return badgeClass;
+  }
 }
- 
+
 export default Counter;
